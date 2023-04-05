@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace backendfoodapi.Models
 {
-    public class IngredientitemModel
+    public class IngredientItemModel
     {
         public int Id {get; set;}
 
@@ -23,7 +23,7 @@ namespace backendfoodapi.Models
 
         public bool isDeleted {get; set;}
 
-        public IngredientitemModel(){}
+        public IngredientItemModel(){}
 
     }
 }
