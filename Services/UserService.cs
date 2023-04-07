@@ -38,7 +38,7 @@ namespace backendfoodapi.Services
                 // Create are hash and salt password
                 var hashPassword = HashPassword(UserToAdd.Password);
                 newUser.Id = UserToAdd.id;
-                newUser.UserName = UserToAdd.Username;
+                newUser.Username = UserToAdd.Username;
                 newUser.Salt = hashPassword.Salt;
                 newUser.Hash = hashPassword.Hash;
 
