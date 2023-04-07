@@ -18,5 +18,10 @@ namespace backendfoodapi.Services.Context
         protected override void OnModelCreating(ModelBuilder builder){
             base.OnModelCreating(builder);
         }
+
+        internal void SavedChanges()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
