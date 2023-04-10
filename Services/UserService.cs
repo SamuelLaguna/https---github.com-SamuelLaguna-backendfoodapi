@@ -6,10 +6,11 @@ using backendfoodapi.Models;
 using backendfoodapi.Models.DTO;
 using backendfoodapi.Services.Context;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Mvc;
 
 namespace backendfoodapi.Services
 {
-    public class UserService
+    public class UserService : ControllerBase
     {
 
         private readonly DataContext _context;
@@ -90,6 +91,24 @@ namespace backendfoodapi.Services
             return newHash == storedHash;
 
         }
+
+
+        public IActionResult Login(LoginDTO User){
+        //Want to return error is user does not have vallid username or password
+        IActionResult Result = Unauthorized();
+
+        if(DoesUserExists(User.Username)){
+            UserModel foundUser = GetUserByUserName(User.Username);
+
+            if(VerifyUserPassword(User.Password, foundUser.Hash,)){
+                
+            }
+        }
+    }
+
+    public UserModel GetUserByUserName(string username){
+        return _context.UserInfo.SingleOrDefault(user => user.UserName == username);
+    }
 
 
     }

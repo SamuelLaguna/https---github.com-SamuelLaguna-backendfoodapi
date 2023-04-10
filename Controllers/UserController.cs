@@ -18,6 +18,12 @@ public class UserController : ControllerBase
         
     }
 
+    [HttpPost]
+    [Route("Login")]
+    public IActionResult Login([FromBody]LoginDTO User){
+        return _data.Login(User);
+    }
+
     public bool AddUser(CreateAccountDTO UserToAdd)
     {
         return _data.AddUser(UserToAdd);
