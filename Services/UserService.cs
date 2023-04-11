@@ -100,8 +100,18 @@ namespace backendfoodapi.Services
         if(DoesUserExists(User.Username)){
             UserModel foundUser = GetUserByUserName(User.Username);
 
-            if(VerifyUserPassword(User.Password, foundUser.Hash,)){
-                
+            if(VerifyUserPassword(User.Password, foundUser.Hash, foundUser.Salt)){
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
+                    var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                    var tokeOptions = new JwtSecurityToken(
+                        issuer: "http://localhost:5000",
+                        audience: "http://localhost:5000",
+                        claims: new List<Claim>(),
+                        expires: DateTime.Now.AddMinutes(30),
+                        signingCredentials: signinCredentials
+                    );
+                    var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                    Result = Ok(new { Token = tokenString });
             }
         }
     }
