@@ -6,10 +6,15 @@ using backendfoodapi.Models;
 using backendfoodapi.Models.DTO;
 using backendfoodapi.Services.Context;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace backendfoodapi.Services
 {
-    public class UserService
+    public class UserService : ControllerBase
     {
 
         private readonly DataContext _context;
@@ -38,7 +43,7 @@ namespace backendfoodapi.Services
                 // Create are hash and salt password
                 var hashPassword = HashPassword(UserToAdd.Password);
                 newUser.Id = UserToAdd.id;
-                newUser.Username = UserToAdd.Username;
+                newUser.UserName = UserToAdd.Username;
                 newUser.Salt = hashPassword.Salt;
                 newUser.Hash = hashPassword.Hash;
 
@@ -92,5 +97,69 @@ namespace backendfoodapi.Services
         }
 
 
+        public IActionResult Login(LoginDTO User){
+        //Want to return error is user does not have vallid username or password
+        IActionResult Result = Unauthorized();
+
+        if(DoesUserExists(User.Username)){
+            UserModel foundUser = GetUserByUserName(User.Username);
+
+            if(VerifyUserPassword(User.Password, foundUser.Hash, foundUser.Salt)){
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
+                    var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                    var tokeOptions = new JwtSecurityToken(
+                        issuer: "http://localhost:5000",
+                        audience: "http://localhost:5000",
+                        claims: new List<Claim>(),
+                        expires: DateTime.Now.AddMinutes(30),
+                        signingCredentials: signinCredentials
+                    );
+                    var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                    Result = Ok(new { Token = tokenString });
+            }
+        }
+
+        return Result; 
     }
+
+    public UserModel GetUserByUserName(string username){
+        return _context.UserInfo.SingleOrDefault(user => user.UserName == username);
+
+    }
+    
+
+        public bool UpdateUser(int id, UserModel userToUpdate)
+        {
+            //This one is sending pver the whole object to be updated
+            _context.Update<UserModel>(userToUpdate);
+            return _context.SaveChanges() !=0;
+        }
+
+
+        public bool UpdateUsername(int id, string username){
+            UserModel foundUser = GetUserById(id);
+            bool result = false;
+            if(foundUser != null){
+                foundUser.UserName = username;
+                _context.Update<UserModel>(foundUser);
+                result = _context.SaveChanges() !=0; 
+            }
+            return result;
+        }
+
+        public UserModel GetUserById(int id){
+            return _context.UserInfo.SingleOrDefault(user => user.Id == id);
+
+        }
+
+        public bool DeleteUser(string userToDelete){
+            UserModel foundUser = GetUserByUserName(userToDelete);
+            bool result = false;
+            if(foundUser != null){
+                _context.Remove<UserModel>(founderUser);
+                result = _context.SaveChanges() !=0;
+            }
+        }
+
+}
 }

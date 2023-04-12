@@ -9,6 +9,7 @@ namespace backendfoodapi.Models
     {
         public int Id {get; set;}
 
+        public int Userid {get; set;}
          public string IngredientName {get; set;}
 
          public int Calories {get; set;}

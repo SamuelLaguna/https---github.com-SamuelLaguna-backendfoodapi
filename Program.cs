@@ -11,6 +11,16 @@ builder.Services.AddScoped<PasswordService>();
 
 
 var connectionString = builder.Configuration.GetConnectionString("MyFoodString");
+
+builder.Service.AddCars(options => {
+    options.AddPolicy("Ingredient", builder => {
+        builder.WithOrgins("")
+        .AllowAnyHeader()
+        .AlowAnyMethod();
+    });
+} );
+
+
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddControllers();
