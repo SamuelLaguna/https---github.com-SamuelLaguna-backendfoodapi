@@ -8,6 +8,11 @@ using backendfoodapi.Services.Context;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
 
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Security.Claims;
+
 namespace backendfoodapi.Services
 {
     public class UserService : ControllerBase
@@ -49,7 +54,7 @@ namespace backendfoodapi.Services
                 //This saves to our database and returns the number of entriees written in our database.
                 // _context.SavedChanges();
 
-                result = _context.SaveChanges() !=0;            
+                result = _context.SaveChanges() != 0;
             }
 
             return result;
@@ -93,15 +98,18 @@ namespace backendfoodapi.Services
         }
 
 
-        public IActionResult Login(LoginDTO User){
-        //Want to return error is user does not have vallid username or password
-        IActionResult Result = Unauthorized();
+        public IActionResult Login(LoginDTO User)
+        {
+            //Want to return error is user does not have vallid username or password
+            IActionResult Result = Unauthorized();
 
-        if(DoesUserExists(User.Username)){
-            UserModel foundUser = GetUserByUserName(User.Username);
+            if (DoesUserExists(User.Username))
+            {
+                UserModel foundUser = GetUserByUserName(User.Username);
 
-            if(VerifyUserPassword(User.Password, foundUser.Hash, foundUser.Salt)){
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
+                if (VerifyUserPassword(User.Password, foundUser.Hash, foundUser.Salt))
+                {
+                    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
                     var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
                     var tokeOptions = new JwtSecurityToken(
                         issuer: "http://localhost:5000",
@@ -112,13 +120,15 @@ namespace backendfoodapi.Services
                     );
                     var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
                     Result = Ok(new { Token = tokenString });
+                }
             }
+            return Result;
         }
-    }
 
-    public UserModel GetUserByUserName(string username){
-        return _context.UserInfo.SingleOrDefault(user => user.UserName == username);
-    }
+        public UserModel GetUserByUserName(string username)
+        {
+            return _context.UserInfo.SingleOrDefault(user => user.UserName == username);
+        }
 
 
     }
