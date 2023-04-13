@@ -19,9 +19,9 @@ namespace backendfoodapi.Services.Context
             base.OnModelCreating(builder);
         }
 
-        internal void SavedChanges()
-        {
-            throw new NotImplementedException();
-        }
+        // internal void SavedChanges()
+        // {
+        //     throw new NotImplementedException();
+        // }
     }
 }
