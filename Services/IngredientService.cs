@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using backendfoodapi.Models;
+using backendfoodapi.Models.DTO;
+using backendfoodapi.Services.Context;
 
 namespace backendfoodapi.Services
 {
@@ -12,58 +15,68 @@ namespace backendfoodapi.Services
         {
             _context = context;
         }
-         public bool AddIngredients(IngredientItemModel newIngredientITem){
+         public bool AddIngredients(IngredientItemModel newIngredientItem){
         _context.Add(newIngredientItem);
         return _context.SaveChanges() !=0;
       }
 
-       public IEnuerable<IngredientItemModels> GetAllIngredientsItems(){
-        return _context.Ingredientinfo; 
+       public IEnumerable<IngredientItemModel> GetAllIngredientsItems(){
+        return _context.IngredientInfo; 
       }
         
-         public IEnumerable<IngredientsItemModel> GetItemsByUserId(int userId){
-            return _context.Ingredientinfo.Where(GetItemsByUserId => GetItemsByUserId.Userid == userId);
+         public IEnumerable<IngredientItemModel> GetItemsByUserId(int userId){
+            return _context.IngredientInfo.Where(GetItemsByUserId => GetItemsByUserId.Userid == userId);
+        }
+
+        public IEnumerable<IngredientItemModel> GetIngredientById(int Id){
+            return _context.IngredientInfo.Where(GetIngredientById => GetIngredientById.Id == Id);
         }
 
 
-        public IEnumerable<IngredientItemModel> GetItemsByCategory(string category){
-            return _context.Ingredientinfo.Where(GetItemsByCategory => GetItemsByCategory.Category == category);
+
+        public bool UpdateIngredientItem (IngredientItemModel IngredientUpdate){
+            _context.Update<IngredientItemModel>(IngredientUpdate);
+            return _context.SaveChanges() !=0;
         }
 
-        public IEnumerable<IngredientItemModel> GetItemsByDate(string date){
-            return _context.Ingredientinfo.Where(GetItemsByCategory => GetItemsByCategory.Date == date);
-        }
+        // public IEnumerable<IngredientItemModel> GetItemsByCategory(string category){
+        //     return _context.IngredientInfo.Where(GetItemsByCategory => GetItemsByCategory.Category == category);
+        // }
 
-        public IEnumerable<IngredientItemModel> GetPublishedItems(){
-            return _context.IngredientInfo.Where(item => item.isPublished);
-        }
+        // public IEnumerable<IngredientItemModel> GetItemsByDate(string date){
+        //     return _context.IngredientInfo.Where(GetItemsByCategory => GetItemsByCategory.Date == date);
+        // }
 
-         public List<IngredientItemModel> GetItemsByTag(string Tag){
-           var allItems = GetAllIngredientsItems().ToLists();
-           for(int i = 0; i < allItems.Count; i++)
-           {
-            IngredientItemModel Item = allItems[i];
-            var itemArr = Item.Tags.Split(",");
+        // public IEnumerable<IngredientItemModel> GetPublishedItems(){
+        //     return _context.IngredientInfo.Where(item => item.isPublished);
+        // }
 
-            for(int j = 0; j < itemArr.Length; j++)
-            {
-                if(itemArr[j].Contains(Tag))
-                {
-                    AllInrgedientsWithTag.Add(Item);
+        //  public List<IngredientItemModel> GetItemsByTag(string Tag){
+        //    var allItems = GetAllIngredientsItems().ToLists();
+        //    for(int i = 0; i < allItems.Count; i++)
+        //    {
+        //     IngredientItemModel Item = allItems[i];
+        //     var itemArr = Item.Tags.Split(",");
 
-                }
-            }
-           }
+        //     for(int j = 0; j < itemArr.Length; j++)
+        //     {
+        //         if(itemArr[j].Contains(Tag))
+        //         {
+        //             AllInrgedientsWithTag.Add(Item);
 
-           return AllInrgedientsWithTag;
-        }
+        //         }
+        //     }
+        //    }
 
-        public IngredientItemModel GetIngredientById(int id){
-            return _context.BlogInfo.SingleOrDefault(item => item.id == id);
-        }
+        //    return AllInrgedientsWithTag;
+        // }
+
+        // public IngredientItemModel GetIngredientById(int id){
+        //     return _context.BlogInfo.SingleOrDefault(item => item.id == id);
+        // }
 
             public bool UpdateBlogItem(IngredientItemModel IngredientUpdate){
-                I_context.Update<IngredientItemModel>(IngredientUpdate);
+                _context.Update<IngredientItemModel>(IngredientUpdate);
                 return _context.SaveChanges() !=0;
             }
 

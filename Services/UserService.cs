@@ -128,9 +128,8 @@ namespace backendfoodapi.Services
     }
     
 
-        public bool UpdateUser(int id, UserModel userToUpdate)
-        {
-            //This one is sending pver the whole object to be updated
+        public bool UpdateUser(UserModel userToUpdate)
+        {  //This one is sending pver the whole object to be updated
             _context.Update<UserModel>(userToUpdate);
             return _context.SaveChanges() !=0;
         }
@@ -156,7 +155,7 @@ namespace backendfoodapi.Services
             UserModel foundUser = GetUserByUserName(userToDelete);
             bool result = false;
             if(foundUser != null){
-                _context.Remove<UserModel>(founderUser);
+                _context.Remove<UserModel>(foundUser);
                 result = _context.SaveChanges() !=0;
             }
             return result;

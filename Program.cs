@@ -12,11 +12,11 @@ builder.Services.AddScoped<PasswordService>();
 
 var connectionString = builder.Configuration.GetConnectionString("MyFoodString");
 
-builder.Service.AddCars(options => {
-    options.AddPolicy("Ingredient", builder => {
-        builder.WithOrgins("")
+builder.Services.AddCors(options => {
+    options.AddPolicy("IngredientPolicy", builder => {
+        builder.WithOrigins("")
         .AllowAnyHeader()
-        .AlowAnyMethod();
+        .AllowAnyMethod();
     });
 } );
 
@@ -38,6 +38,8 @@ if (app.Environment.IsDevelopment())
 }
 
 // app.UseHttpsRedirection();
+
+app.UseCors("IngredientPolicy");
 
 app.UseAuthorization();
 

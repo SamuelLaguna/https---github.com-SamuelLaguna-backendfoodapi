@@ -14,7 +14,7 @@ namespace backendfoodapi.Controllers
    public class IngredientsController : ControllerBase
    {
     private readonly IngredientService _data;
-    public IngredientController(IngredientService dataFromService){
+    public IngredientsController(IngredientService dataFromService){
         _data = dataFromService;
     }
 
@@ -26,56 +26,56 @@ namespace backendfoodapi.Controllers
 
       [HttpGet]
       [Route("GetAllIngredientsItems")]
-      public IEnuerable<IngredientItemModels> GetAllIngredientsItems(){
+      public IEnumerable<IngredientItemModel> GetAllIngredientsItems(){
         return _data.GetAllIngredientsItems();
       }
         
         [HttpGet]
         [Route("GetItemsByUserId/{UserId}")]
-        public IEnumerable<IngredientsItemModel> GetItemsByUserId(int userId){
+        public IEnumerable<IngredientItemModel> GetItemsByUserId(int userId){
             return _data.GetItemsByUserId(userId);
         }
 
-        [HttpGet]
-        [Route("GetItemsCatagory/{catagory}")]
-        public IEnumerable<BlogItemModel> GetItemByCatagory(string category){
-            return _data.GetItemsByCategory(GetItemByCategory);
-        }
+        // [HttpGet]
+        // [Route("GetItemsCatagory/{catagory}")]
+        // public IEnumerable<BlogItemModel> GetItemByCatagory(string category){
+        //     return _data.GetItemsByCategory(GetItemByCategory);
+        // }
+
+        // [HttpGet]
+        // [Route("GetItemsByDate/{date}")]
+        // public IEnumerable<BlogItemModel> GetItemsByDate(string date){
+        //         return _data.GetItemsByDate(date);
+        // }
+
+        // [HttpGet]
+        // [Route("GetPublishedItems")]
+        // public IEnumerable<IngredientItemModel> GetPublishedItems(){
+        //     return _data.GetPusblishedItems();
+        // }
+
+        // [HttpGet]
+        // [Route("GetItemByTag/{Tag}")]
+        // public List<IngredientItemModel> GetItemByTag(string Tag){
+        //     return _data.GetItemsByTag(Tag);
+        // }
+
+        // [HttpGet]
+        // [Route("GetItemsByTag/{Tag}")]
+        // public List<IngredientItemModel> GetItemsByTag(string Tag){
+        //     return  _data.GetItemsByTag(Tag);
+        // }
 
         [HttpGet]
-        [Route("GetItemsByDate/{date}")]
-        public IEnumerable<BlogItemModel> GetItemsByDate(string date){
-                return _data.GetItemsByDate(date);
-        }
-
-        [HttpGet]
-        [Route("GetPublishedItems")]
-        public IEnumerable<IngredientItemModel> GetPublishedItems(){
-            return _data.GetPusblishedItems();
-        }
-
-        [HttpGet]
-        [Route("GetItemByTag/{Tag}")]
-        public List<IngredientItemModel> GetItemByTag(string Tag){
-            return _data.GetItemsByTag(Tag);
-        }
-
-        [HttpGet]
-        [Route("GetItemsByTag/{Tag}")]
-        public List<IngredientItemModel> GetItemsByTag(string Tag){
-            return  _data.GetItemsByTag(Tag);
-        }
-
-        [HttpGet]
-        [Route("GetBlogItemById/{id}")]
-        public IngredientItemModel GetINgredientItemById(int id){
+        [Route("GetIngredientById/{id}")]
+        public IEnumerable<IngredientItemModel> GetIngredientById(int id){
             return _data.GetIngredientById(id);
         }
 
 
         [HttpGet]
         [Route("UpdateBlogItem")]
-            public bool UpdateBlogItem(IngredientItemModel IngredientUpdate){
+            public bool UpdateIngredientItem(IngredientItemModel IngredientUpdate){
                 return _data.UpdateIngredientItem(IngredientUpdate);
             }
 
