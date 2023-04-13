@@ -28,12 +28,6 @@ namespace backendfoodapi.Services
             return _context.UserInfo.SingleOrDefault(user => user.Username == Username) != null;
 
         }
-
-
-
-
-
-
         public bool AddUser(CreateAccountDTO UserToAdd)
         {
             bool result = false;
