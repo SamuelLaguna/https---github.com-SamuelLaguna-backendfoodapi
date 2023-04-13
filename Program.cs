@@ -8,20 +8,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<IngredientService>();
 builder.Services.AddScoped<PasswordService>();
-
+builder.Services.AddControllers();
 
 var connectionString = builder.Configuration.GetConnectionString("MyFoodString");
+builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddCors(options => {
     options.AddPolicy("IngredientPolicy", builder => {
-        builder.WithOrigins("")
+        builder.WithOrigins("http://localhost:3000")
         .AllowAnyHeader()
         .AllowAnyMethod();
     });
 } );
 
 
-builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

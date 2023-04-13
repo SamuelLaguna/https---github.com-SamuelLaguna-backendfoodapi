@@ -16,12 +16,13 @@ namespace backendfoodapi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IngredientName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Calories = table.Column<int>(type: "int", nullable: false),
-                    Protien = table.Column<int>(type: "int", nullable: false),
-                    Carbs = table.Column<int>(type: "int", nullable: false),
-                    Fat = table.Column<int>(type: "int", nullable: false),
-                    Sodium = table.Column<int>(type: "int", nullable: false),
+                    Userid = table.Column<int>(type: "int", nullable: true),
+                    IngredientName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Calories = table.Column<int>(type: "int", nullable: true),
+                    Protien = table.Column<int>(type: "int", nullable: true),
+                    Carbs = table.Column<int>(type: "int", nullable: true),
+                    Fat = table.Column<int>(type: "int", nullable: true),
+                    Sodium = table.Column<int>(type: "int", nullable: true),
                     isDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -37,7 +38,8 @@ namespace backendfoodapi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Salt = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Hash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
