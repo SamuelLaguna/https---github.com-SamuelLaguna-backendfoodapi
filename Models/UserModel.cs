@@ -14,8 +14,8 @@ namespace backendfoodapi.Models
         public string? Salt {get; set;}
 
         public string? Hash {get; set;}
-        public string Username { get; set; }
-        public string UserName { get; internal set; }
+        public string? Username { get; set; }
+        public string? UserName { get; internal set; }
 
         public UserModel(){}
 

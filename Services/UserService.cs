@@ -159,6 +159,7 @@ namespace backendfoodapi.Services
                 _context.Remove<UserModel>(founderUser);
                 result = _context.SaveChanges() !=0;
             }
+            return result;
         }
 
 }

@@ -13,8 +13,8 @@ namespace backendfoodapi.Controllers
    [Route("[controller]")]
    public class IngredientsController : ControllerBase
    {
-    private readonly IngredientServices _data;
-    public IngredientController(IngredienServices dataFromService){
+    private readonly IngredientService _data;
+    public IngredientController(IngredientService dataFromService){
         _data = dataFromService;
     }
 
