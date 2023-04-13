@@ -37,7 +37,7 @@ namespace backendfoodapi.Services
                 // Create are hash and salt password
                 var hashPassword = HashPassword(UserToAdd.Password);
                 newUser.Id = UserToAdd.id;
-                newUser.UserName = UserToAdd.Username;
+                newUser.Username = UserToAdd.Username;
                 newUser.Salt = hashPassword.Salt;
                 newUser.Hash = hashPassword.Hash;
 
@@ -117,7 +117,7 @@ namespace backendfoodapi.Services
     }
 
     public UserModel GetUserByUserName(string username){
-        return _context.UserInfo.SingleOrDefault(user => user.UserName == username);
+        return _context.UserInfo.SingleOrDefault(user => user.Username == username);
 
     }
     
@@ -133,7 +133,7 @@ namespace backendfoodapi.Services
             UserModel foundUser = GetUserById(id);
             bool result = false;
             if(foundUser != null){
-                foundUser.UserName = username;
+                foundUser.Username = username;
                 _context.Update<UserModel>(foundUser);
                 result = _context.SaveChanges() !=0; 
             }

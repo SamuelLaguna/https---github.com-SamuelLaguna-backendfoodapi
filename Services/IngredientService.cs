@@ -35,12 +35,12 @@ namespace backendfoodapi.Services
             return _context.SaveChanges() !=0;
         }
 
-          public bool DeleteIngredientItem(IngredientItemModel IngredientDelete)
-        {
-           IngredientDelete.isDeleted = true;
-           _context.Update<IngredientItemModel>(IngredientDelete);
-           return _context.SaveChanges() !=0;
-        }
+        //   public bool DeleteIngredientItem(IngredientItemModel IngredientDelete)
+        // {
+        //    IngredientDelete.isDeleted = true;
+        //    _context.Update<IngredientItemModel>(IngredientDelete);
+        //    return _context.SaveChanges() !=0;
+        // }
 
         
 

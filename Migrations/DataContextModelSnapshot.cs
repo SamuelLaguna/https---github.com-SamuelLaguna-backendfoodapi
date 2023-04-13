@@ -48,12 +48,6 @@ namespace backendfoodapi.Migrations
                     b.Property<int?>("Sodium")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Userid")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.ToTable("IngredientInfo");
@@ -71,9 +65,6 @@ namespace backendfoodapi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Salt")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")

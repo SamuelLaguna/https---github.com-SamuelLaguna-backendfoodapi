@@ -45,12 +45,12 @@ namespace backendfoodapi.Controllers
                 return _data.UpdateIngredientItem(IngredientUpdate);
             }
 
-        [HttpPost]
-        [Route("DeleteIngredientItem")]
-        public bool DeleteIngredientItem(IngredientItemModel IngredientDelete)
-        {
-            return _data.DeleteIngredientItem(IngredientDelete);
-        }
+        // [HttpPost]
+        // [Route("DeleteIngredientItem")]
+        // public bool DeleteIngredientItem(IngredientItemModel IngredientDelete)
+        // {
+        //     return _data.DeleteIngredientItem(IngredientDelete);
+        // }
 
 
    }
