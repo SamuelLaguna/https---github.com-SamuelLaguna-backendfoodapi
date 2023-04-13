@@ -7,7 +7,7 @@ namespace backendfoodapi.Models
 {
     public class IngredientItemModel
     {
-        public int? Id {get; set;}
+        public int Id {get; set;}
 
         public int? Userid {get; set;}
          public string? IngredientName {get; set;}

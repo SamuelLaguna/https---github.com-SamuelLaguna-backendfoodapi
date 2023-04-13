@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<IngredientService>();
 builder.Services.AddScoped<PasswordService>();
-
+builder.Services.AddControllers();
 
 var connectionString = builder.Configuration.GetConnectionString("MyFoodString");
 
